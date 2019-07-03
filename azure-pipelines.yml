@@ -21,6 +21,12 @@ steps:
   inputs:
     verbose: false
 
+- script: './node_modules/.bin/node-ssas $(wwwrootdir) --output $(wwwrootdir)'
+  displayName: 'Compile Sass assets'
+
+- task: Gulp@1
+  displayName: 'Run gulp tasks'
+
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
   workingDirectory: '$(wwwrootdir)'
@@ -50,6 +56,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifact: drop'
   condition: succeeded()
-  
-  
+
 ...
